@@ -1,4 +1,5 @@
 'use strict';
+
 import Parse from 'parse';
 import log from 'npmlog';
 import APNS from './APNS';
@@ -22,8 +23,9 @@ export default class ParsePushAdapterWeb {
 
     for (let pushType of pushTypes) {
       if (this.validPushTypes.indexOf(pushType) < 0) {
-        throw new Parse.Error(Parse.Error.PUSH_MISCONFIGURED,
-                              'Push to ' + pushType + ' is not supported');
+        throw new Parse.Error(
+          Parse.Error.PUSH_MISCONFIGURED,
+          'Push to ' + pushType + ' is not supported');
       }
       switch (pushType) {
         case 'ios':
