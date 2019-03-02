@@ -9,6 +9,7 @@
   "scripts": {
     "build": "./node_modules/.bin/babel src/ -d lib/",
     "test": "TESTING=1 nyc ./node_modules/.bin/jasmine",
+    "watch": "./node_modules/.bin/babel --watch src/ -d lib/",
     "prepare": "npm run build"
   },
   "keywords": [

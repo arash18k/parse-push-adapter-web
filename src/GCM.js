@@ -5,7 +5,7 @@ import log from 'npmlog';
 import gcm from '@parse/node-gcm';
 import { randomString } from './PushAdapterUtils';
 
-const LOG_PREFIX = 'parse-server-push-adapter GCM';
+const LOG_PREFIX = 'parse-push-adapter-web GCM';
 const GCMTimeToLiveMax = 4 * 7 * 24 * 60 * 60; // GCM allows a max of 4 weeks
 const GCMRegistrationTokensMax = 1000;
 
@@ -50,6 +50,7 @@ GCM.prototype.send = function(data, devices) {
   }
   // get the devices back...
   devices = slices[0];
+  log.verbose(JSON.stringify(devices));
 
   let expirationTime;
   // We handle the expiration_time convertion in push.js, so expiration_time is a valid date

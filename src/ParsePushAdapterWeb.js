@@ -6,13 +6,14 @@ import APNS from './APNS';
 import GCM from './GCM';
 import { classifyInstallations } from './PushAdapterUtils';
 
-const LOG_PREFIX = 'parse-server-push-adapter-web';
+const LOG_PREFIX = 'parse-push-adapter-web';
 
 export default class ParsePushAdapterWeb {
 
   supportsPushTracking = true;
 
   constructor(pushConfig = {}) {
+    log.verbose('Push Adapter intializing...');
     this.validPushTypes = ['ios', 'osx', 'tvos', 'android', 'fcm', 'chrome'];
     this.senderMap = {};
     // used in PushController for Dashboard Features
@@ -22,6 +23,9 @@ export default class ParsePushAdapterWeb {
     let pushTypes = Object.keys(pushConfig);
 
     for (let pushType of pushTypes) {
+      // Ignore adapter key
+      if (pushType == "adapter")
+        continue;
       if (this.validPushTypes.indexOf(pushType) < 0) {
         throw new Parse.Error(
           Parse.Error.PUSH_MISCONFIGURED,
@@ -52,6 +56,7 @@ export default class ParsePushAdapterWeb {
   }
 
   send(data, installations) {
+    log.verbose(JSON.stringify(installations));
     let deviceMap = classifyInstallations(installations, this.validPushTypes);
     let sendPromises = [];
     for (let pushType in deviceMap) {

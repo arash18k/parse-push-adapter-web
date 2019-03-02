@@ -9,10 +9,10 @@ if (process.env.VERBOSE || process.env.VERBOSE_PARSE_SERVER_PUSH_ADAPTER) {
   log.level = 'verbose';
 }
 
-import ParsePushAdapter from './ParsePushAdapterWeb';
+import ParsePushAdapterWeb from './ParsePushAdapterWeb';
 import GCM from './GCM';
 import APNS from './APNS';
 import * as utils from './PushAdapterUtils';
 
-export default ParsePushAdapter;
-export { ParsePushAdapter, APNS, GCM, utils };
+export default ParsePushAdapterWeb;
+export { ParsePushAdapterWeb, APNS, GCM, utils };
