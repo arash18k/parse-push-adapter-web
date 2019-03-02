@@ -50,7 +50,6 @@ GCM.prototype.send = function(data, devices) {
   }
   // get the devices back...
   devices = slices[0];
-  log.verbose(JSON.stringify(devices));
 
   let expirationTime;
   // We handle the expiration_time convertion in push.js, so expiration_time is a valid date
@@ -124,6 +123,7 @@ GCM.prototype.send = function(data, devices) {
  * @returns {Object} A promise which is resolved after we get results from gcm
  */
 function generateGCMPayload(requestData, pushId, timeStamp, expirationTime) {
+  log.verbose(LOG_PREFIX, 'GCM generateGCMPayload');
   let payload = {
     priority: 'high'
   };
@@ -133,8 +133,11 @@ function generateGCMPayload(requestData, pushId, timeStamp, expirationTime) {
     time: new Date(timeStamp).toISOString()
   }
   const optionalKeys = ['content_available', 'notification'];
+  log.verbose(LOG_PREFIX, `GCM requestData %s`, JSON.stringify(requestData, null, 4));
+
   optionalKeys.forEach((key, index, array) => {
     if (requestData.hasOwnProperty(key)) {
+      log.verbose(LOG_PREFIX, `GCM found optional key %s`, key);
       payload[key] = requestData[key];
     }
   });
