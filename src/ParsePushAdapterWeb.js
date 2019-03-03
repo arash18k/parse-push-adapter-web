@@ -14,7 +14,7 @@ export default class ParsePushAdapterWeb {
 
   constructor(pushConfig = {}) {
     log.verbose('Push Adapter intializing...');
-    this.validPushTypes = ['ios', 'osx', 'tvos', 'android', 'fcm', 'chrome'];
+    this.validPushTypes = ['ios', 'osx', 'tvos', 'android', 'fcm', 'chrome', 'firefox'];
     this.senderMap = {};
     // used in PushController for Dashboard Features
     this.feature = {
@@ -40,6 +40,7 @@ export default class ParsePushAdapterWeb {
         case 'android':
         case 'fcm':
           this.senderMap[pushType] = new GCM(pushConfig[pushType]);
+        case 'firefox':
         case 'chrome':
           this.senderMap[pushType] = new GCM(pushConfig[pushType]);
           break;
